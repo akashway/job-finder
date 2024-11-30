@@ -2,6 +2,9 @@ const express = require('express')
 const path = require("path")
 const dotenv = require("dotenv")
 const mongoose = require("mongoose")
+const bodyParser=require("body-parser")
+const useRouter=require("./routes/user")
+
 
 const app = express()
 dotenv.config()
@@ -15,6 +18,9 @@ app.get("/", (req, res) => {
     res.json({ message: "Hello World" })
 })
 
+app.use(express.urlencoded({extended:true}))
+app.use(bodyParser.json())
+app.use("/api/user",useRouter)
 
 app.listen(PORT, (err) => {
     if (!err) {
