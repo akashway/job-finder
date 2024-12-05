@@ -4,6 +4,7 @@ const dotenv = require("dotenv")
 const mongoose = require("mongoose")
 const bodyParser=require("body-parser")
 const useRouter=require("./routes/user")
+const JobRouter=require("./routes/job")
 
 
 const app = express()
@@ -21,6 +22,8 @@ app.get("/", (req, res) => {
 app.use(express.urlencoded({extended:true}))
 app.use(bodyParser.json())
 app.use("/api/user",useRouter)
+
+app.use("/api/job",JobRouter)
 
 app.listen(PORT, (err) => {
     if (!err) {
