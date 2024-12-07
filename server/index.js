@@ -5,13 +5,14 @@ const mongoose = require("mongoose")
 const bodyParser=require("body-parser")
 const useRouter=require("./routes/user")
 const JobRouter=require("./routes/job")
+const cors=require('cors')
 
 
 const app = express()
 dotenv.config()
 const PORT = process.env.PORT || 4000
 
-
+app.use(cors())
 app.use(express.static(path.join(__dirname, "public")))
 
 app.get("/", (req, res) => {

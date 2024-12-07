@@ -9,11 +9,11 @@ const authMiddleware=require('../middleware/auth')
 
 router.get("/",async (req,res)=>{
     const {limit,offset,monthlySalary,name}=req.query
-    // const jobs= await Job.find().skip(offset).limit(limit)
+    const jobs= await Job.find().skip(offset).limit(limit)
     // const jobs=await Job.find({monthlySalary:{$gte:4000,$lte:10000}}).skip(offset).limit(limit)
     // const jobs=await Job.find({monthlySalary}).skip(offset).limit(limit)
     // const jobs=await Job.find({monthlySalary,companyName:name}).skip(offset).limit(limit) 
-    const jobs= await Job.find({monthlySalary,companyName:{$regex:name,$options:"i"}}).skip(offset).limit(limit)
+    // const jobs= await Job.find({monthlySalary,companyName:{$regex:name,$options:"i"}}).skip(offset).limit(limit)
     res.status(200).json(jobs)
 })
 
