@@ -1,8 +1,16 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import loginServerCall from '../services/loginServerCall'
-import { NavLink } from "react-router"
+import { NavLink,useNavigate } from "react-router"
 
 const Login = () => {
+
+    const navigate=useNavigate()
+
+    // if(localStorage.getItem('token')){
+    //     console.log(localStorage.getItem('token'))
+    //     alert('already login')
+    //     navigate("home")
+    // }
 
     const [loginFormData, setLoginFormData] = useState({
         email: "",
@@ -22,9 +30,27 @@ const Login = () => {
     const submitHandler = (event) => {
         event.preventDefault()
         const response = loginServerCall(loginFormData)
-        response.then(data => alert(`Status:${data.status}: Login successfully`)).catch((err) => console.log(err))
+        response
+        .then(data => {
+
+            if(data.status===200){
+                localStorage.setItem('token',data.token)
+                alert(`Status:${data.status}: Login successfully`)
+                navigate("/home")
+            }
+
+        })
+        .catch((err) => console.log(err))
 
     }
+
+    useEffect(()=>{
+        if(localStorage.getItem('token')){
+            console.log(localStorage.getItem('token'))
+            alert('already login')
+            navigate("/home")
+        }
+    })
 
     return (
         <div>
